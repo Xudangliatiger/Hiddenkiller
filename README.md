@@ -28,9 +28,9 @@ The struct of demo5:
 ```
                                   softmax[classes,1]
                                  ↑↑↑↑↑↑↑↑↑↑
-                                 denselayer1024  w=60*1024
+                                 denselayer1024  w=1024*1024
                                  ↑↑↑↑↑↑↑↑↑↑
-                                 denselayer1024  w=60*1024
+                                 denselayer1024  w=60×4*1024
 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 lstm→lstm→lstm→lstm→lstm→lstm→lstm→lstm→lstm→lstm→lstm→lstm→lstm→lstm→lstm→lstm
 ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
