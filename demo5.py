@@ -42,7 +42,7 @@ batch_size = 100
 epoch_num = 100
 n_inputs = 4   # equals to embedding dim
 n_steps = 60    # time steps, length of single DNA seq
-n_hidden_units = len(trainingset_y[0])   # neurons in hidden layer,it equal to output length ,also the n_classes.
+n_hidden_units = 4   # neurons in hidden layer,it equal to output length ,also the n_classes.
 n_hidden_layers = 2  # depth of network
 n_classes = len(trainingset_y[0])    # number of different y
 
@@ -78,9 +78,10 @@ def LSTMdemo(X):
 
 
     #dense layer
+    fc1_in = tf.reshape(outputs,[batch_size,n_inputs*n_steps])
     w_fc1 = weight_variable([n_inputs*n_steps,1024])
     w_fc2 = weight_variable([1024, 1024])
-    fc1 = tf.matmul(outputs, w_fc1)
+    fc1 = tf.matmul(fc1_in, w_fc1)
     fc2 = tf.matmul(fc1, w_fc2)
 
     #softmax layer
@@ -100,7 +101,7 @@ cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred, label
 train_op = tf.train.AdamOptimizer(lr).minimize(cost)
 correct_pred = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
-saver = tf.train.Saver()
+saver = tf.train.Saver(max_to_keep=5)
 
 
 def next(self, batch_size):
@@ -129,4 +130,4 @@ with tf.Session() as sess:
                 y: batch_ys,
             }))
             step += 1
-        if epoch % 20 == 0: saver.save(sess,'save_path')
+        if epoch % 20 == 0: saver.save(sess,'ckpt/demo5.ckpt',global_step= epoch)
