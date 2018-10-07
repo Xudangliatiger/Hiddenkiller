@@ -116,6 +116,8 @@ with tf.Session() as sess:
     for epoch in range(epoch_num):
         lr=10*lr
         step = 0
+        a = []
+        print('we are running the epoch %d'%epoch)
         while (step+1) * batch_size < training_iters:
             batch_xs = next(trainingset_x,batch_size)
             batch_ys = next(trainingset_y,batch_size)
@@ -124,10 +126,10 @@ with tf.Session() as sess:
                 x: batch_xs,
                 y: batch_ys,
             })
-            if step % 20 == 0:
-                print(sess.run(accuracy, feed_dict={
+            a.append(sess.run(accuracy, feed_dict={
                 x: batch_xs,
                 y: batch_ys,
             }))
             step += 1
+        print('the accuracy of this epoch is:',np.mean(a))   # each batch will record its accuracy into a[],and each epoch we will
         if epoch % 20 == 0: saver.save(sess,'ckpt/demo5.ckpt',global_step= epoch)
